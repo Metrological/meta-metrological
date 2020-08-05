@@ -31,7 +31,7 @@ WPEFRAMEWORK_SYSTEM_PREFIX = "OE"
 
 PACKAGECONFIG ?= " \
     release \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'bluetooth', '', d)} \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'bluetooth', 'bluetooth', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opencdm', 'opencdm', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'provisionproxy', 'provisionproxy', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'opencdm', 'opencdm opencdm_gst', '', d)} \
@@ -47,6 +47,7 @@ PACKAGECONFIG[releasesymbols] = "-DBUILD_TYPE=ReleaseSymbols,,"
 PACKAGECONFIG[release]        = "-DBUILD_TYPE=Release,,"
 PACKAGECONFIG[production]     = "-DBUILD_TYPE=Production,,"
 
+PACKAGECONFIG[bluetooth]        = "-DBLUETOOTH=ON,-DBLUETOOTH=OFF, bluez5"
 PACKAGECONFIG[compositorclient] = "-DCOMPOSITORCLIENT=ON,-DCOMPOSITORCLIENT=OFF"
 PACKAGECONFIG[cyclicinspector]  = "-DTEST_CYCLICINSPECTOR=ON,-DTEST_CYCLICINSPECTOR=OFF,"
 PACKAGECONFIG[provisionproxy]   = "-DPROVISIONPROXY=ON,-DPROVISIONPROXY=OFF,libprovision"
