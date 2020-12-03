@@ -160,3 +160,5 @@ INSANE_SKIP_${PN}-dbg += "dev-so"
 # ----------------------------------------------------------------------------
 
 RDEPENDS_${PN}_rpi = "userland"
+
+TOOLCHAIN = "gcc"
