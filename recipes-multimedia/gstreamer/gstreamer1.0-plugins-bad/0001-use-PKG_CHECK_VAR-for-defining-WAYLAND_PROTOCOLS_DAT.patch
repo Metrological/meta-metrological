@@ -1,0 +1,31 @@
+From bfa34a3fa9b426f28163e9ba0539180b021d81f3 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Fri, 20 Jul 2018 23:24:05 -0700
+Subject: [PATCH] use PKG_CHECK_VAR for defining WAYLAND_PROTOCOLS_DATADIR
+
+This allows to override the wayland-protocols pkgdatadir with the
+WAYLAND_PROTOCOLS_DATADIR from environment.
+
+pkgconfig would return an absolute path in /usr/share/wayland-protocols
+for the pkgdatadir value, which is not suitable for cross-compiling.
+
+Upstream-Status: Pending
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
+---
+ configure.ac | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 79cfda4..b75c082 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -2222,7 +2222,8 @@ AG_GST_CHECK_FEATURE(WAYLAND, [wayland sink], wayland , [
+     PKG_CHECK_MODULES(WAYLAND_PROTOCOLS, wayland-protocols >= 1.4, [
+       if test "x$wayland_scanner" != "x"; then
+         HAVE_WAYLAND="yes"
+-        AC_SUBST(WAYLAND_PROTOCOLS_DATADIR, `$PKG_CONFIG --variable=pkgdatadir wayland-protocols`)
++        PKG_CHECK_VAR([WAYLAND_PROTOCOLS_DATADIR], [wayland-protocols >= $WAYLAND_PROTOCOLS_REQUIRED], pkgdatadir)
++        AC_SUBST(WAYLAND_PROTOCOLS_DATADIR)
+       else
+         AC_MSG_RESULT([wayland-scanner is required to build the wayland plugin])
+         HAVE_WAYLAND="no"

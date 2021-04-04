@@ -1,10 +1,13 @@
-AUTOTOOLS_SCRIPT_PATH = "${S}/drm/westeros-sink"
-AUTOTOOLS_SCRIPT_PATH_rpi = "${S}/rpi/westeros-sink"
+SINK_SOC_PATH = "drm"
+SINK_SOC_PATH_rpi = "${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', 'v4l2', 'rpi', d)}"
+
+AUTOTOOLS_SCRIPT_PATH = "${S}/${SINK_SOC_PATH}/westeros-sink"
 
 LICENSE_LOCATION = "${S}/LICENSE"
 
-CFLAGS_append_rpi = " -DWESTEROS_PLATFORM_RPI -DWESTEROS_INVERTED_Y -DBUILD_WAYLAND -x c++ \
-                      -I${STAGING_INCDIR}/interface/vmcs_host/linux"
+CFLAGS_append_rpi = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '', \
+                      '-DWESTEROS_PLATFORM_RPI -DWESTEROS_INVERTED_Y -DBUILD_WAYLAND -x c++ \
+                      -I${STAGING_INCDIR}/interface/vmcs_host/linux', d)}"
 
 CFLAGS_append = " -DWESTEROS_PLATFORM_DRM -x c++"
 

@@ -31,3 +31,5 @@ FILES_${PN} = "${libdir}/*"
 do_configure_prepend() {
     sed -i -e 's/-lwesteros_simplebuffer_client/-lwesteros_compositor -lwesteros_simplebuffer_client/g' ${AUTOTOOLS_SCRIPT_PATH}/westeros-sink/Makefile.am
 }
+
+COMPATIBLE_HOST_rpi = "${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', 'null', '(.*)', d)}"

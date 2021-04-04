@@ -27,6 +27,9 @@ SRC_URI = "https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad
            file://0019-mssdemux-support-for-live-content-as-vod.patch \
            "
 
+# to avoid "no rule to make target viewporter-protocols.c" error on enabling wayland
+SRC_URI_append_morty = " file://0001-use-PKG_CHECK_VAR-for-defining-WAYLAND_PROTOCOLS_DAT.patch"
+
 SRC_URI[md5sum] = "2757103e57a096a1a05b3ab85b8381af"
 SRC_URI[sha256sum] = "23ddae506b3a223b94869a0d3eea3e9a12e847f94d2d0e0b97102ce13ecd6966"
 

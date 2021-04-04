@@ -27,8 +27,14 @@ PACKAGECONFIG ??= " \
     hls libmms faad \
 "
 
+EXTRA_OEMAKE += "WAYLAND_PROTOCOLS_DATADIR=${STAGING_DATADIR}/wayland-protocols"
+
 PACKAGECONFIG_append_rpi = " zzrpiextras"
-PACKAGECONFIG[zzrpiextras] = "--enable-gles2 --enable-egl --enable-gl --enable-dispmanx,,virtual/libgles2 virtual/egl"
+GL_OPTIONS ?= ""
+GL_OPTIONS = "${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', \
+                     bb.utils.contains('DISTRO_FEATURES', 'wayland', '--enable-wayland', '', d), \
+                     '--enable-dispmanx', d)}"
+PACKAGECONFIG[zzrpiextras] = "--enable-gles2 --enable-egl --enable-gl ${GL_OPTIONS}, , virtual/libgles2 virtual/egl"
 
 PACKAGECONFIG[assrender]       = "--enable-assrender,--disable-assrender,libass"
 PACKAGECONFIG[bluez]           = "--enable-bluez,--disable-bluez,${BLUEZ}"
