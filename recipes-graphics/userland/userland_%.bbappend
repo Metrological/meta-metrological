@@ -5,4 +5,4 @@ SRC_URI += " \
     file://0020-brcmEGL-wayland-support.patch \
 "
 
-RPROVIDES_${PN} += " libegl"
+RPROVIDES_${PN} += " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '', 'libegl', d)}"
