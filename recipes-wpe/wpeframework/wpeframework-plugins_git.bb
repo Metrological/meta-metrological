@@ -88,6 +88,7 @@ WPE_WIFICONTROL_DEP          ?= ""
 WPE_WIFICONTROL_DEP_rpi      ?= "linux-firmware-bcm43430"
 PACKAGECONFIG[wifi]           = "-DPLUGIN_WIFICONTROL=ON,-DPLUGIN_WIFICONTROL=OFF,,wpa-supplicant ${WPE_WIFICONTROL_DEP}"
 PACKAGECONFIG[wifi_rdkhal]    = "-DPLUGIN_USE_RDK_HAL_WIFI=ON,-DPLUGIN_USE_RDK_HAL_WIFI=OFF,,wifi-hal"
+PACKAGECONFIG[dialserver]     = "-DPLUGIN_DIALSERVER=ON,-DPLUGIN_DIALSERVER=OFF,,"
 
 # ----------------------------------------------------------------------------
 
